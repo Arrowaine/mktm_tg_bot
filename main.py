@@ -192,5 +192,5 @@ def photomes(message):
       file_id = photo.file_id
       bot.send_message(int(os.environ['me']), text = f'{file_id}')
 
-reflask.keep_alive()
+#reflask.keep_alive()
 bot.polling(non_stop=True)
