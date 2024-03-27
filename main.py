@@ -1,3 +1,4 @@
+from __future__ import annotations
 import telebot, os, random
 import Config_repos as Config
 import Config_local as viron
