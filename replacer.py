@@ -1,5 +1,5 @@
 import random
-import Config_repl
+import Config_repos
 import best_mat_ever_py
 
 def replacer_mat(text):
