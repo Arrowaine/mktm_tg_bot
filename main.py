@@ -1,11 +1,12 @@
 import telebot, os, random
 import Config_repos as Config
+import Config_local as viron
 import BenCam, best_mat_ever_py, replacer
 
 
 iter = {} #{user_id: int}
 iterdroch = {}
-bot = telebot.TeleBot(os.environ['TOTOKEN'])
+bot = telebot.TeleBot(viron.TOTOKEN)
 
 
 
@@ -57,7 +58,7 @@ def Text(message):
       bot.register_next_step_handler(meseg, Mytext)
 
 def Mytext(message):
-  bot.send_message(int(os.environ['GENSHIN_CHAT']),text = f'{message.text}' )
+  bot.send_message(int(viron.GENSHIN_CHAT),text = f'{message.text}' )
 
 @bot.message_handler(commands=["pinfrombot"])
 def Text_to_pin(message):
@@ -67,7 +68,7 @@ def Text_to_pin(message):
       bot.register_next_step_handler(meseg, Mytext_to_pin)
 
 def Mytext_to_pin(message):
-  bot.send_message(int(os.environ['GENSHIN_CHAT']),text = f'{message.text}')
+  bot.send_message(int(viron.GENSHIN_CHAT),text = f'{message.text}')
     #bot.pin_chat_message(message.chat.id, message_id=message.id, disable_notification=True)
 
 @bot.message_handler(content_types=["text"])
@@ -134,7 +135,7 @@ def trigger_text(message):
     elif message.text.casefold() == 'ф' or message.text.casefold() == 'f':
       bot.send_photo(message.chat.id, photo = random.choice(Config.flist), reply_to_message_id=message.id, disable_notification=True)
       print('f')
-    elif message.chat.id == int(os.environ['GENSHIN_CHAT']) and message.id%10000==0:
+    elif message.chat.id == int(viron.GENSHIN_CHAT) and message.id%10000==0:
       bot.send_message(message.chat.id, f'ПОЗДРАВЛЯЮ. ЭТО {message.id} СООБЩЕНИЕ В ЧАТИКЕ! С НОВЫМ КРУГОМ СПАМА!', reply_to_message_id=message.id)
     elif 'мат' in message.text.casefold() :
       bot.send_message(message.chat.id, text = replacer.replacer_mat(message.text), disable_notification=True)
@@ -181,16 +182,16 @@ def stckmes(message):
       print('sticker')
    #    bot.send_message(message.chat.id, "Моя твоя не понимать")
    #    bot.send_sticker(message.chat.id, sticker ='CAACAgIAAx0CZ4LuFAACRf1jBzUpN0mJZhkmcmLlu7hXcizJgQACpxEAAtW2AUsFwb3PlpBVpykE')
-    elif message.chat.id == int(os.environ.get('ME')):
+    elif message.chat.id == int(viron.ME):
 
-      bot.send_message(chat_id = int(os.environ.get('ME')), text = f'{message.sticker.file_id}')
+      bot.send_message(chat_id = int(viron.ME), text = f'{message.sticker.file_id}')
 
 @bot.message_handler(content_types=["photo"])
 def photomes(message):
-    if message.chat.id == int(os.environ.get('ME')):
+    if message.chat.id == int(viron.ME):
       photo = max(message.photo, key=lambda x: x.height)
       file_id = photo.file_id
-      bot.send_message(int(os.environ['ME']), text = f'{file_id}')
+      bot.send_message(int(viron.ME), text = f'{file_id}')
 
 #reflask.keep_alive()
 bot.polling(non_stop=True)
